@@ -15,8 +15,8 @@ const Contact = () => {
   };
 
   const contactInfo = [
-    { icon: Mail, label: "Email", value: "info@phorilab.com", href: "mailto:info@phorilab.com" },
-    { icon: MessageSquare, label: "Business Inquiries", value: "partnerships@phorilab.com", href: "mailto:partnerships@phorilab.com" },
+    { icon: Mail, label: "Email", value: "info@nativescope.co.za", href: "mailto:info@nativescope.co.za" },
+    { icon: MessageSquare, label: "Business Inquiries", value: "thato@nativescope.co.za", href: "mailto:thato@nativescope.co.za" },
     { icon: MapPin, label: "Location", value: "Johannesburg, South Africa", href: null },
   ];
 
@@ -33,7 +33,7 @@ const Contact = () => {
           >
             <h1 className="text-5xl md:text-7xl font-bold mb-6">Contact</h1>
             <p className="text-xl text-muted-foreground max-w-2xl">
-              Interested in PHORI LAB? Get in touch with our team.
+              Interested in Curato? Get in touch with our team.
             </p>
           </motion.div>
 
@@ -64,7 +64,7 @@ const Contact = () => {
                   </div>
                   <div>
                     <Label htmlFor="message">Message</Label>
-                    <Textarea id="message" placeholder="Tell us about your interest in PHORI LAB..." className="mt-2 min-h-[180px]" required />
+                    <Textarea id="message" placeholder="Tell us about your interest in Curato..." className="mt-2 min-h-[180px]" required />
                   </div>
                   <Button type="submit" size="lg" className="w-full">
                     <Mail className="mr-2" size={20} />
@@ -107,14 +107,14 @@ const Contact = () => {
                 <h3 className="font-bold mb-3">For Artists</h3>
                 <p className="text-sm text-muted-foreground leading-relaxed">
                   Ready to submit your track? Head to the Submit page to upload your music 
-                  and join the PHORI LAB pipeline.
+                  and join the Curato pipeline.
                 </p>
               </Card>
 
               <Card className="p-6">
                 <h3 className="font-bold mb-3">For Labels & Partners</h3>
                 <p className="text-sm text-muted-foreground leading-relaxed">
-                  Interested in partnering with PHORI LAB? Contact us for partnership 
+                  Interested in partnering with Curato? Contact us for partnership 
                   opportunities and early access to export-ready talent.
                 </p>
               </Card>

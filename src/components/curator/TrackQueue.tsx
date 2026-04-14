@@ -16,7 +16,8 @@ import {
   Music,
   User,
   ExternalLink,
-  Filter
+  Filter,
+  Layers
 } from "lucide-react";
 import { TrackPlayButton } from "@/components/TrackPlayButton";
 
@@ -34,7 +35,7 @@ interface Track {
 }
 
 export const TrackQueue = () => {
-  const { session } = useAuth();
+  const { session, user } = useAuth();
   const { toast } = useToast();
   const [tracks, setTracks] = useState<Track[]>([]);
   const [loading, setLoading] = useState(true);
@@ -42,6 +43,34 @@ export const TrackQueue = () => {
   const [playingTrack, setPlayingTrack] = useState<string | null>(null);
   const [selectedTrack, setSelectedTrack] = useState<Track | null>(null);
   const [feedbackOpen, setFeedbackOpen] = useState(false);
+  const [pools, setPools] = useState<{ id: string; name: string }[]>([]);
+
+  // Fetch active pools for "Add to Pool"
+  useEffect(() => {
+    supabase
+      .from("test_pools")
+      .select("id, name")
+      .eq("is_active", true)
+      .then(({ data }) => setPools(data || []));
+  }, []);
+
+  const addToPool = async (trackId: string, poolId: string) => {
+    if (!user) return;
+    try {
+      const { error } = await supabase.from("pool_tracks").insert({
+        track_id: trackId,
+        pool_id: poolId,
+        added_by: user.id,
+      });
+      if (error) throw error;
+      // Also update track status to in_review
+      await supabase.from("tracks").update({ status: "in_review" }).eq("id", trackId);
+      setTracks(prev => prev.map(t => t.id === trackId ? { ...t, status: "in_review" } : t));
+      toast({ title: "Added to Pool", description: "Track added to test pool" });
+    } catch (error: any) {
+      toast({ title: "Error", description: error.message || "Failed to add to pool", variant: "destructive" });
+    }
+  };
 
   const fetchTracks = async () => {
     setLoading(true);
@@ -137,7 +166,9 @@ export const TrackQueue = () => {
             <SelectContent>
               <SelectItem value="all">All Tracks</SelectItem>
               <SelectItem value="pending">Pending</SelectItem>
+              <SelectItem value="community_review">Community Review</SelectItem>
               <SelectItem value="in_review">In Review</SelectItem>
+              <SelectItem value="shortlisted">Shortlisted</SelectItem>
               <SelectItem value="approved">Approved</SelectItem>
               <SelectItem value="rejected">Rejected</SelectItem>
             </SelectContent>
@@ -253,7 +284,9 @@ export const TrackQueue = () => {
                           </SelectTrigger>
                           <SelectContent>
                             <SelectItem value="pending">Pending</SelectItem>
+                            <SelectItem value="community_review">Community Review</SelectItem>
                             <SelectItem value="in_review">In Review</SelectItem>
+                            <SelectItem value="shortlisted">Shortlisted</SelectItem>
                             <SelectItem value="approved">Approved</SelectItem>
                             <SelectItem value="rejected">Rejected</SelectItem>
                           </SelectContent>
@@ -266,6 +299,24 @@ export const TrackQueue = () => {
                         >
                           Review
                         </Button>
+
+                        {pools.length > 0 && (
+                          <Select onValueChange={(poolId) => addToPool(track.id, poolId)}>
+                            <SelectTrigger className="w-32">
+                              <div className="flex items-center gap-1">
+                                <Layers className="w-3 h-3" />
+                                <span className="text-xs">Add to Pool</span>
+                              </div>
+                            </SelectTrigger>
+                            <SelectContent>
+                              {pools.map((pool) => (
+                                <SelectItem key={pool.id} value={pool.id}>
+                                  {pool.name}
+                                </SelectItem>
+                              ))}
+                            </SelectContent>
+                          </Select>
+                        )}
                       </div>
                     </div>
                   </CardContent>

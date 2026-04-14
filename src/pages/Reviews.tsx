@@ -8,12 +8,14 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { AudioPlayer } from "@/components/AudioPlayer";
 import { PageTransition } from "@/components/PageTransition";
 import { toast } from "sonner";
 import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/hooks/useAuth";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
+import { GENRE_LIST } from "@/lib/genres";
 
 // Supported external platforms for link validation
 const SUPPORTED_PLATFORMS = [
@@ -61,6 +63,7 @@ const Reviews = () => {
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [isDragging, setIsDragging] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [selectedGenre, setSelectedGenre] = useState<string>("");
 
   // Fetch user's submissions from DB
   const { data: userTracks } = useQuery({
@@ -93,7 +96,6 @@ const Reviews = () => {
     const form = e.currentTarget;
     const artistName = (form.elements.namedItem("artistName") as HTMLInputElement).value.trim();
     const trackName = (form.elements.namedItem("trackName") as HTMLInputElement).value.trim();
-    const feedbackFocus = (form.elements.namedItem("feedbackFocus") as HTMLTextAreaElement)?.value.trim();
 
     if (!artistName || !trackName) {
       toast.error("Please fill in all required fields");
@@ -144,7 +146,7 @@ const Reviews = () => {
             submission_type: "upload",
             file_url: filePath,
             status: "pending",
-            genre: feedbackFocus || null,
+            genre: selectedGenre || null,
           });
 
         if (insertError) {
@@ -155,7 +157,7 @@ const Reviews = () => {
         }
 
         setSelectedFile(null);
-        toast.success("Track uploaded and submitted to PHORI LAB!");
+        toast.success("Track uploaded and submitted to Curato!");
       }
 
       if (submitType === "link") {
@@ -184,7 +186,7 @@ const Reviews = () => {
             external_link: link,
             platform: validation.platform,
             status: "pending",
-            genre: feedbackFocus || null,
+            genre: selectedGenre || null,
           });
 
         if (insertError) {
@@ -194,7 +196,7 @@ const Reviews = () => {
           return;
         }
 
-        toast.success(`${validation.platform} link submitted to PHORI LAB!`);
+        toast.success(`${validation.platform} link submitted to Curato!`);
       }
 
       // Refresh the tracks list
@@ -224,7 +226,7 @@ const Reviews = () => {
               </div>
               <h1 className="text-4xl md:text-5xl font-bold mb-4">Submit Your Music</h1>
               <p className="text-xl text-muted-foreground mb-8">
-                Sign in to submit tracks to PHORI LAB for structured feedback and hit-testing
+                Sign in to submit tracks to Curato for structured feedback and curation
               </p>
               <Link to="/auth">
                 <Button size="lg" className="gap-2">
@@ -247,8 +249,8 @@ const Reviews = () => {
                   <div>
                     <h3 className="font-bold mb-2">Your Music is Protected</h3>
                     <p className="text-sm text-muted-foreground leading-relaxed">
-                      PHORI LAB is private by default. Your tracks are never publicly accessible. 
-                      Only assigned test pool members, curators, and admins can access your music. 
+                      Curato is private by default. Your tracks are never publicly accessible. 
+                      Only assigned curators and tastemakers can access your music. 
                       No downloads, no public links—just controlled listening environments.
                     </p>
                   </div>
@@ -291,8 +293,8 @@ const Reviews = () => {
                 <div>
                   <h3 className="font-bold mb-2">Your Music is Protected</h3>
                   <p className="text-sm text-muted-foreground leading-relaxed">
-                    PHORI LAB is private by default. Your tracks are never publicly accessible. 
-                    Only assigned test pool members, curators, and admins can access your music. 
+                    Curato is private by default. Your tracks are never publicly accessible. 
+                    Only assigned curators and tastemakers can access your music. 
                     No downloads, no public links—just controlled listening environments.
                   </p>
                 </div>
@@ -439,18 +441,24 @@ const Reviews = () => {
                   </AnimatePresence>
 
                   <div>
-                    <Label htmlFor="feedbackFocus">Feedback Focus (Optional)</Label>
-                    <Textarea 
-                      id="feedbackFocus"
-                      name="feedbackFocus"
-                      placeholder="What specific feedback are you looking for? (e.g., mix quality, hook strength, export readiness)" 
-                      className="mt-2 min-h-[100px]" 
-                    />
+                    <Label htmlFor="genre">Genre</Label>
+                    <Select value={selectedGenre} onValueChange={setSelectedGenre}>
+                      <SelectTrigger className="mt-2">
+                        <SelectValue placeholder="Select a genre" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        {GENRE_LIST.map((genre) => (
+                          <SelectItem key={genre} value={genre}>
+                            {genre}
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
                   </div>
 
                   <Button type="submit" size="lg" className="w-full" disabled={isSubmitting}>
                     <Music className="mr-2" size={20} />
-                    {isSubmitting ? "Submitting..." : "Submit to PHORI LAB"}
+                    {isSubmitting ? "Submitting..." : "Submit to Curato"}
                   </Button>
                 </form>
               </Card>
@@ -506,7 +514,7 @@ const Reviews = () => {
 
               {/* Pipeline Info */}
               <Card className="p-6 mt-8 bg-foreground/5">
-                <h3 className="font-bold mb-4">The PHORI LAB Pipeline</h3>
+                <h3 className="font-bold mb-4">The Curato Pipeline</h3>
                 <div className="space-y-3 text-sm text-muted-foreground">
                   <div className="flex items-center gap-3">
                     <Badge variant="outline" className="shrink-0">1</Badge>

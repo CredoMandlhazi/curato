@@ -1,47 +1,50 @@
 import { Link } from "react-router-dom";
-import { ArrowRight, Upload, Users, Mic2, CheckCircle } from "lucide-react";
+import { ArrowRight, Upload, Users, TrendingUp, CheckCircle, Heart, Trophy } from "lucide-react";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { HeroCarousel } from "@/components/HeroCarousel";
 import { PageTransition } from "@/components/PageTransition";
-import phoriLabLogo from "@/assets/phori-lab-logo.png";
+import curatoLogoNew from "@/assets/curato-logo-new.png";
 
 const Home = () => {
   const howItWorksSteps = [
     {
       icon: Upload,
       title: "Submit Your Track",
-      description: "Upload your unreleased music securely to the PHORI LAB platform.",
+      description: "Producers upload their music to Curato. All genres welcome — from Amapiano to hip-hop, Afrobeats to electronic.",
     },
     {
-      icon: Users,
-      title: "Curated Testing",
-      description: "Your track enters controlled test pools with trusted tastemakers and listeners.",
+      icon: Heart,
+      title: "Community Reacts",
+      description: "The community listens, likes, comments, and shares. Engagement signals surface the best content organically.",
     },
     {
-      icon: Mic2,
-      title: "Structured Feedback",
-      description: "Receive detailed, actionable feedback from curators and industry professionals.",
+      icon: TrendingUp,
+      title: "Curators Shortlist",
+      description: "Community curators review the top-performing tracks and shortlist the best for final validation.",
     },
     {
       icon: CheckCircle,
-      title: "Export Ready",
-      description: "Progress through the pipeline to become export-ready for global distribution.",
+      title: "Experts Validate",
+      description: "Industry professionals and genre tastemakers give the final co-sign on what matters.",
     },
   ];
 
-  const whoItsFor = [
+  const layers = [
     {
-      title: "African Artists",
-      description: "Emerging and established artists looking to test their music in real listening environments before release.",
+      title: "Community",
+      description: "Producers, listeners, and creators — uploading tracks, liking, commenting, and sharing to generate quality signals at scale.",
+      icon: Users,
     },
     {
-      title: "Curators & Tastemakers",
-      description: "Industry professionals who want to discover and shape the next wave of African music.",
+      title: "Community Curators",
+      description: "Upcoming producers and niche tastemakers who filter and shortlist content. Rewarded with exposure and status.",
+      icon: TrendingUp,
     },
     {
-      title: "Labels & Partners",
-      description: "Record labels seeking pre-vetted, export-ready talent from Africa's vibrant music scene.",
+      title: "Top Curators",
+      description: "Industry professionals and key genre tastemakers who do the final validation. They decide what matters.",
+      icon: Trophy,
     },
   ];
 
@@ -52,7 +55,6 @@ const Home = () => {
         <section className="min-h-[90vh] flex items-center">
           <div className="studio-container w-full">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-              {/* Left - Title */}
               <motion.div
                 initial={{ opacity: 0, x: -50 }}
                 animate={{ opacity: 1, x: 0 }}
@@ -65,9 +67,9 @@ const Home = () => {
                   transition={{ delay: 0.4, duration: 0.6 }}
                   className="flex items-center gap-3 mb-6"
                 >
-                  <img src={phoriLabLogo} alt="PHORI LAB" className="w-12 h-12 rounded-lg" />
+                  <img src={curatoLogoNew} alt="Curato" className="w-12 h-12 rounded-lg object-contain brightness-0 invert" />
                   <span className="text-muted-foreground uppercase tracking-[0.3em] text-sm">
-                    Artist Development Platform
+                    Community-Driven Curation
                   </span>
                 </motion.div>
 
@@ -77,7 +79,7 @@ const Home = () => {
                   transition={{ delay: 0.5, duration: 0.8 }}
                   className="hero-title mb-8"
                 >
-                  PHORI<br />LAB
+                  CURATO
                 </motion.h1>
 
                 <motion.p
@@ -86,7 +88,7 @@ const Home = () => {
                   transition={{ delay: 0.7, duration: 0.6 }}
                   className="text-lg text-muted-foreground mb-10 max-w-md"
                 >
-                  A curated artist development and hit-testing platform. Test unreleased music in real listening environments, receive structured feedback, and progress through an export-readiness pipeline.
+                  Where the crowd surfaces talent and the experts validate it. A community-driven curation system for music across every genre.
                 </motion.p>
 
                 <motion.div
@@ -95,22 +97,21 @@ const Home = () => {
                   transition={{ delay: 0.9, duration: 0.6 }}
                   className="flex flex-col sm:flex-row gap-4"
                 >
-                  <Link to="/reviews">
+                  <Link to="/discover">
                     <Button size="lg" className="bg-foreground text-background hover:bg-foreground/90 px-8">
-                      <Upload className="mr-2" size={18} />
-                      Submit Your Track
+                      <TrendingUp className="mr-2" size={18} />
+                      Explore Tracks
                     </Button>
                   </Link>
-                  <Link to="/about">
+                  <Link to="/reviews">
                     <Button size="lg" variant="outline" className="px-8 border-foreground/20">
-                      Learn More
-                      <ArrowRight className="ml-2" size={18} />
+                      <Upload className="mr-2" size={18} />
+                      Submit Music
                     </Button>
                   </Link>
                 </motion.div>
               </motion.div>
 
-              {/* Right - Carousel */}
               <motion.div
                 initial={{ opacity: 0, x: 50 }}
                 animate={{ opacity: 1, x: 0 }}
@@ -123,7 +124,7 @@ const Home = () => {
           </div>
         </section>
 
-        {/* How It Works Section */}
+        {/* How It Works — The Waze Flow */}
         <section className="py-24 bg-card/50">
           <div className="studio-container">
             <motion.div
@@ -135,7 +136,7 @@ const Home = () => {
             >
               <h2 className="text-4xl md:text-5xl font-bold mb-4">How It Works</h2>
               <p className="text-muted-foreground max-w-2xl mx-auto">
-                A structured pipeline that takes your music from submission to export-ready
+                Community finds the talent. Curators confirm it. The best rises to the top.
               </p>
             </motion.div>
 
@@ -162,10 +163,10 @@ const Home = () => {
           </div>
         </section>
 
-        {/* Curation & Trust Section */}
+        {/* The Curation Stack */}
         <section className="py-24">
           <div className="studio-container">
-            <div className="grid lg:grid-cols-2 gap-16 items-center">
+            <div className="grid lg:grid-cols-2 gap-16 items-start">
               <motion.div
                 initial={{ opacity: 0, x: -30 }}
                 whileInView={{ opacity: 1, x: 0 }}
@@ -173,19 +174,19 @@ const Home = () => {
                 transition={{ duration: 0.6 }}
               >
                 <h2 className="text-4xl md:text-5xl font-bold mb-6">
-                  Curation Over<br />Algorithms
+                  The Signal<br />System
                 </h2>
                 <div className="space-y-4 text-muted-foreground leading-relaxed">
                   <p>
-                    PHORI LAB is powered by DJ Maphorisa's curation network—a trusted ecosystem of tastemakers, 
-                    DJs, and industry professionals who understand what makes music resonate.
+                    Curato is not a judging panel — it's a signal system. The community generates 
+                    data through engagement. The system filters it. Trusted curators validate it.
                   </p>
                   <p>
-                    Unlike algorithmic platforms that prioritize virality, we focus on quality, cultural fit, 
-                    and export readiness. Every track is evaluated by real people who know the industry.
+                    This means thousands of submissions with minimal cost. Only the best rises. 
+                    Creators compete harder. The community feels involved.
                   </p>
                   <p className="font-semibold text-foreground">
-                    Signal over noise. Progression over virality.
+                    "We're building a community-driven curation system — where the crowd surfaces talent and the experts validate it."
                   </p>
                 </div>
               </motion.div>
@@ -195,26 +196,34 @@ const Home = () => {
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.6, delay: 0.2 }}
-                className="bg-card rounded-2xl p-8 border border-border"
+                className="space-y-4"
               >
-                <div className="flex items-center gap-4 mb-6">
-                  <img src={phoriLabLogo} alt="PHORI LAB" className="w-16 h-16 rounded-xl" />
-                  <div>
-                    <h3 className="text-xl font-bold">DJ Maphorisa</h3>
-                    <p className="text-sm text-muted-foreground">Super Curator</p>
-                  </div>
-                </div>
-                <p className="text-muted-foreground leading-relaxed">
-                  "PHORI LAB is about creating a proper pipeline for African artists. We test music in real 
-                  environments, give structured feedback, and help artists become truly export-ready. 
-                  This isn't about luck—it's about development."
-                </p>
+                {layers.map((layer, index) => (
+                  <motion.div
+                    key={index}
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: index * 0.15 }}
+                    className="p-6 bg-card rounded-xl border border-border hover:border-foreground/20 transition-all"
+                  >
+                    <div className="flex items-start gap-4">
+                      <div className="p-2 rounded-lg bg-foreground/10 shrink-0">
+                        <layer.icon className="w-5 h-5 text-foreground" />
+                      </div>
+                      <div>
+                        <h3 className="text-lg font-bold mb-1">{layer.title}</h3>
+                        <p className="text-sm text-muted-foreground leading-relaxed">{layer.description}</p>
+                      </div>
+                    </div>
+                  </motion.div>
+                ))}
               </motion.div>
             </div>
           </div>
         </section>
 
-        {/* Who It's For Section */}
+        {/* What This Unlocks */}
         <section className="py-24 bg-card/50">
           <div className="studio-container">
             <motion.div
@@ -224,14 +233,19 @@ const Home = () => {
               transition={{ duration: 0.6 }}
               className="text-center mb-16"
             >
-              <h2 className="text-4xl md:text-5xl font-bold mb-4">Who It's For</h2>
+              <h2 className="text-4xl md:text-5xl font-bold mb-4">What This Unlocks</h2>
               <p className="text-muted-foreground max-w-2xl mx-auto">
-                PHORI LAB serves everyone in the African music ecosystem
+                A system that scales with culture, not cost
               </p>
             </motion.div>
 
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-              {whoItsFor.map((item, index) => (
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+              {[
+                { title: "Massive Scale", desc: "Thousands of submissions, minimal cost increase." },
+                { title: "Lower Costs", desc: "Less manual review, less reliance on expensive curators." },
+                { title: "Stronger Community", desc: "Users feel involved. Creators compete harder." },
+                { title: "Better Content", desc: "Only the best rises to the top." },
+              ].map((item, index) => (
                 <motion.div
                   key={index}
                   initial={{ opacity: 0, y: 30 }}
@@ -239,10 +253,10 @@ const Home = () => {
                   viewport={{ once: true }}
                   transition={{ duration: 0.6, delay: index * 0.1 }}
                   whileHover={{ y: -8 }}
-                  className="p-8 bg-card rounded-xl border border-border hover:border-foreground/20 transition-all"
+                  className="p-8 bg-card rounded-xl border border-border hover:border-foreground/20 transition-all text-center"
                 >
                   <h3 className="text-xl font-bold mb-3">{item.title}</h3>
-                  <p className="text-muted-foreground text-sm leading-relaxed">{item.description}</p>
+                  <p className="text-muted-foreground text-sm leading-relaxed">{item.desc}</p>
                 </motion.div>
               ))}
             </div>
@@ -260,17 +274,25 @@ const Home = () => {
               className="text-center"
             >
               <h2 className="text-4xl md:text-6xl font-bold mb-6">
-                Ready to Test<br />Your Music?
+                The Community Finds<br />The Talent
               </h2>
               <p className="text-xl text-muted-foreground mb-10 max-w-2xl mx-auto">
-                Join PHORI LAB and take the first step toward becoming export-ready
+                Curato works when the community surfaces talent — and the curators confirm it
               </p>
-              <Link to="/reviews">
-                <Button size="lg" className="bg-foreground text-background hover:bg-foreground/90 px-10">
-                  Get Started
-                  <ArrowRight className="ml-2" size={18} />
-                </Button>
-              </Link>
+              <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                <Link to="/discover">
+                  <Button size="lg" className="bg-foreground text-background hover:bg-foreground/90 px-10">
+                    Discover Tracks
+                    <ArrowRight className="ml-2" size={18} />
+                  </Button>
+                </Link>
+                <Link to="/leaderboard">
+                  <Button size="lg" variant="outline" className="px-10 border-foreground/20">
+                    <Trophy className="mr-2" size={18} />
+                    View Leaderboard
+                  </Button>
+                </Link>
+              </div>
             </motion.div>
           </div>
         </section>

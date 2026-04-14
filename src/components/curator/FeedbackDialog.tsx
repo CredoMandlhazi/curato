@@ -13,7 +13,7 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Slider } from "@/components/ui/slider";
 import { Switch } from "@/components/ui/switch";
-import { Music, Star, Sparkles, TrendingUp, Mic2 } from "lucide-react";
+import { Music, Star, Sparkles, TrendingUp, Mic2, Shield } from "lucide-react";
 
 interface Track {
   id: string;
@@ -36,7 +36,7 @@ export const FeedbackDialog = ({ track, open, onOpenChange, onSubmit }: Feedback
   const [originality, setOriginality] = useState(5);
   const [commercialPotential, setCommercialPotential] = useState(5);
   const [notes, setNotes] = useState("");
-  const [isPublic, setIsPublic] = useState(false);
+  const [isPublic] = useState(false);
 
   const handleSubmit = async () => {
     if (!track) return;
@@ -68,7 +68,7 @@ export const FeedbackDialog = ({ track, open, onOpenChange, onSubmit }: Feedback
       setOriginality(5);
       setCommercialPotential(5);
       setNotes("");
-      setIsPublic(false);
+      // isPublic stays false - feedback is always private
 
       onSubmit();
     } catch (error) {
@@ -171,15 +171,14 @@ export const FeedbackDialog = ({ track, open, onOpenChange, onSubmit }: Feedback
             />
           </div>
 
-          {/* Public Toggle */}
-          <div className="flex items-center justify-between p-3 rounded-lg bg-muted/50">
-            <div>
-              <Label className="text-sm font-medium">Make Public</Label>
+          {/* Feedback is always private */}
+          <div className="p-3 rounded-lg bg-muted/50">
+            <div className="flex items-center gap-2">
+              <Shield className="w-4 h-4 text-muted-foreground" />
               <p className="text-xs text-muted-foreground">
-                Allow the artist to see this feedback
+                All curator feedback is private and only visible to the review team.
               </p>
             </div>
-            <Switch checked={isPublic} onCheckedChange={setIsPublic} />
           </div>
         </div>
 

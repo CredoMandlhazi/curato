@@ -56,7 +56,7 @@ export const useMobileNotifications = () => {
           LocalNotifications.schedule({
             notifications: [{
               id: Date.now(),
-              title: notification.title || 'PHORI LAB',
+              title: notification.title || 'Curato',
               body: notification.body || '',
               extra: notification.data
             }]

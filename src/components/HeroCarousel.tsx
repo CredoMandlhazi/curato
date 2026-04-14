@@ -2,15 +2,16 @@ import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 
-// Import DJ Maphorisa images
-import maphorisaHero from "@/assets/dj-maphorisa-hero.jpg";
-import maphorisa2 from "@/assets/dj-maphorisa-2.jpg";
-import maphorisa3 from "@/assets/dj-maphorisa-3.jpg";
+import mdu1 from "@/assets/mdu-1.jpg";
+import mdu2 from "@/assets/mdu-2.jpg";
+import mdu3 from "@/assets/mdu-3.jpg";
+import mdu4 from "@/assets/mdu-4.jpg";
 
 const heroImages = [
-  { src: maphorisaHero, alt: "DJ Maphorisa" },
-  { src: maphorisa2, alt: "DJ Maphorisa Live" },
-  { src: maphorisa3, alt: "DJ Maphorisa Studio" },
+  { src: mdu1, alt: "DJ performing live set" },
+  { src: mdu2, alt: "Producer in the studio" },
+  { src: mdu3, alt: "Musician with instrument" },
+  { src: mdu4, alt: "FL Studio production" },
 ];
 
 export const HeroCarousel = () => {
@@ -43,9 +44,7 @@ export const HeroCarousel = () => {
 
   return (
     <div className="relative w-full h-full">
-      {/* Main carousel container - Square-like dimensions */}
       <div className="relative h-[350px] md:h-[400px] lg:h-[450px] flex items-center justify-center overflow-hidden">
-        {/* Previous slide (partial) */}
         <motion.div
           className="absolute left-0 w-1/5 opacity-40 blur-sm"
           style={{ zIndex: 1, aspectRatio: "1/1" }}
@@ -58,7 +57,6 @@ export const HeroCarousel = () => {
           />
         </motion.div>
 
-        {/* Current slide - Square */}
         <AnimatePresence mode="wait">
           <motion.div
             key={currentIndex}
@@ -82,7 +80,6 @@ export const HeroCarousel = () => {
           </motion.div>
         </AnimatePresence>
 
-        {/* Next slide (partial) */}
         <motion.div
           className="absolute right-0 w-1/5 opacity-40 blur-sm"
           style={{ zIndex: 1, aspectRatio: "1/1" }}
@@ -96,7 +93,6 @@ export const HeroCarousel = () => {
         </motion.div>
       </div>
 
-      {/* Navigation buttons */}
       <div className="absolute inset-y-0 left-4 flex items-center z-20">
         <motion.button
           whileHover={{ scale: 1.1 }}
@@ -118,7 +114,6 @@ export const HeroCarousel = () => {
         </motion.button>
       </div>
 
-      {/* Dots indicator */}
       <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2 z-20">
         {heroImages.map((_, index) => (
           <button

@@ -1,17 +1,19 @@
 import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { Menu, X, LogIn, LogOut, User, Shield, Music, Crown, Headphones, ShoppingBag } from "lucide-react";
+import { Menu, X, LogIn, LogOut, User, Shield, Music, Crown, Headphones, ShoppingBag, MessageCircle, Settings } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useAuth } from "@/hooks/useAuth";
 import { Button } from "@/components/ui/button";
 import { NotificationBell } from "@/components/NotificationBell";
 
-const navLinks = [
-  { name: "Home", path: "/" },
-  { name: "About", path: "/about" },
-  { name: "Shop", path: "/shop" },
-  { name: "Submit", path: "/reviews" },
-  { name: "Contact", path: "/contact" },
+const allNavLinks = [
+  { name: "Home", path: "/", roles: ["admin", "super_curator", "curator", "artist", "listener", null] },
+  { name: "Discover", path: "/discover", roles: ["admin", "super_curator", "curator", "listener", null] },
+  { name: "Leaderboard", path: "/leaderboard", roles: ["admin", "super_curator", "curator", "artist"] },
+  { name: "Shop", path: "/shop", roles: ["admin", "super_curator", "curator", "artist"] },
+  { name: "Submit", path: "/reviews", roles: ["admin", "super_curator", "curator", "artist"] },
+  { name: "Chat", path: "/chat", roles: ["admin", "super_curator", "curator", "artist", "listener"] },
+  { name: "Contact", path: "/contact", roles: ["admin", "super_curator", "curator", "artist", "listener", null] },
 ];
 
 export const Header = () => {
@@ -23,6 +25,8 @@ export const Header = () => {
   const isAdmin = role === "admin";
   const isArtist = role === "artist";
   const isListener = role === "listener";
+
+  const navLinks = allNavLinks.filter((link) => link.roles.includes(role || null));
 
   return (
     <motion.header
@@ -63,23 +67,11 @@ export const Header = () => {
             >
               <AnimatePresence mode="wait">
                 {isMobileMenuOpen ? (
-                  <motion.div
-                    key="close"
-                    initial={{ rotate: -90, opacity: 0 }}
-                    animate={{ rotate: 0, opacity: 1 }}
-                    exit={{ rotate: 90, opacity: 0 }}
-                    transition={{ duration: 0.2 }}
-                  >
+                  <motion.div key="close" initial={{ rotate: -90, opacity: 0 }} animate={{ rotate: 0, opacity: 1 }} exit={{ rotate: 90, opacity: 0 }} transition={{ duration: 0.2 }}>
                     <X size={24} />
                   </motion.div>
                 ) : (
-                  <motion.div
-                    key="menu"
-                    initial={{ rotate: 90, opacity: 0 }}
-                    animate={{ rotate: 0, opacity: 1 }}
-                    exit={{ rotate: -90, opacity: 0 }}
-                    transition={{ duration: 0.2 }}
-                  >
+                  <motion.div key="menu" initial={{ rotate: 90, opacity: 0 }} animate={{ rotate: 0, opacity: 1 }} exit={{ rotate: -90, opacity: 0 }} transition={{ duration: 0.2 }}>
                     <Menu size={24} />
                   </motion.div>
                 )}
@@ -126,16 +118,15 @@ export const Header = () => {
                         </Button>
                       </Link>
                     )}
-                    <span className="hidden sm:block text-sm text-muted-foreground">
-                      <User className="inline-block w-4 h-4 mr-1" />
-                      {user.email?.split("@")[0]}
-                    </span>
-                    <Button
-                      variant="ghost"
-                      size="sm"
-                      onClick={signOut}
-                      className="gap-2"
-                    >
+                    <Link to="/profile">
+                      <Button variant="ghost" size="sm" className="gap-2">
+                        <User className="w-4 h-4" />
+                        <span className="hidden sm:inline">
+                          {user.email?.split("@")[0]}
+                        </span>
+                      </Button>
+                    </Link>
+                    <Button variant="ghost" size="sm" onClick={signOut} className="gap-2">
                       <LogOut className="w-4 h-4" />
                       <span className="hidden sm:inline">Sign Out</span>
                     </Button>

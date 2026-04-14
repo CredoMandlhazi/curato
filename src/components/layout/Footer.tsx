@@ -2,12 +2,15 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import { PasswordModal } from "@/components/PasswordModal";
+import imagelineLogo from "@/assets/imageline-logo.png";
+import flStudioLogo from "@/assets/fl-studio-logo.png";
+import curatoLogo from "@/assets/curato-logo-new.png";
+import ambLogo from "@/assets/amb-logo.png";
 
-// Social media links
 const socialLinks = [
-  { name: "TikTok", href: "https://www.tiktok.com/@djmaphorisa", icon: "tiktok" },
-  { name: "Instagram", href: "https://www.instagram.com/djmaphorisa/", icon: "instagram" },
-  { name: "X", href: "https://x.com/DjMaphorisa", icon: "x" },
+  { name: "TikTok", href: "https://www.tiktok.com/@nativescope", icon: "tiktok" },
+  { name: "Instagram", href: "https://www.instagram.com/nativescope/", icon: "instagram" },
+  { name: "X", href: "https://x.com/nativescope", icon: "x" },
 ];
 
 const siteLinks = [
@@ -17,7 +20,6 @@ const siteLinks = [
   { name: "Contact", path: "/contact" },
 ];
 
-// Social Icon Component
 const SocialIcon = ({ icon }: { icon: string }) => {
   if (icon === "tiktok") {
     return (
@@ -57,7 +59,6 @@ export const Footer = () => {
       setLogoClickCount(0);
     }
     
-    // Reset count after 2 seconds of no clicks
     setTimeout(() => {
       setLogoClickCount(0);
     }, 2000);
@@ -86,10 +87,10 @@ export const Footer = () => {
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
               >
-                <h3 className="text-lg font-bold">PHORI LAB</h3>
+                <img src={curatoLogo} alt="Curato" className="h-20 object-contain brightness-0 invert" />
               </motion.button>
               <p className="text-muted-foreground text-sm leading-relaxed">
-                A curated artist development and hit-testing platform powered by DJ Maphorisa's curation network.
+                A creator platform by Native Scope — the gateway into structured music creation in Africa.
               </p>
             </div>
 
@@ -114,9 +115,9 @@ export const Footer = () => {
               <h4 className="text-sm font-semibold uppercase tracking-wider mb-4">Platform</h4>
               <div className="space-y-3 text-sm text-muted-foreground">
                 <p>Track Submission</p>
-                <p>Test Pools</p>
-                <p>Structured Feedback</p>
-                <p>Export Pipeline</p>
+                <p>Curation Pipeline</p>
+                <p>Sound Packs</p>
+                <p>Creator Progression</p>
               </div>
             </div>
 
@@ -127,8 +128,8 @@ export const Footer = () => {
                 <p>
                   <span className="text-foreground">Business:</span>
                   <br />
-                  <a href="mailto:info@phorilab.com" className="hover:text-foreground transition-colors">
-                    info@phorilab.com
+                  <a href="mailto:info@nativescope.co.za" className="hover:text-foreground transition-colors">
+                    info@nativescope.co.za
                   </a>
                 </p>
                 <p>
@@ -158,10 +159,26 @@ export const Footer = () => {
             </div>
           </div>
 
+          {/* Partners Section */}
+          <div className="py-8 border-t border-border mb-8">
+            <h4 className="text-sm font-semibold uppercase tracking-wider text-center mb-6 text-muted-foreground">Partners</h4>
+            <div className="flex items-center justify-center gap-12 flex-wrap">
+              <a href="https://www.image-line.com" target="_blank" rel="noopener noreferrer" className="opacity-70 hover:opacity-100 transition-opacity">
+                <img src={imagelineLogo} alt="Image-Line" className="h-10 object-contain brightness-0 invert" />
+              </a>
+              <a href="https://www.image-line.com/fl-studio/" target="_blank" rel="noopener noreferrer" className="opacity-70 hover:opacity-100 transition-opacity">
+                <img src={flStudioLogo} alt="FL Studio" className="h-10 object-contain brightness-0 invert" />
+              </a>
+              <span className="opacity-70 hover:opacity-100 transition-opacity">
+                <img src={ambLogo} alt="Ambitious Entertainment" className="h-10 object-contain brightness-0 invert" />
+              </span>
+            </div>
+          </div>
+
           {/* Bottom bar */}
           <div className="pt-8 border-t border-border flex flex-col md:flex-row items-center justify-between gap-4 text-xs text-muted-foreground">
-            <p>All Rights Reserved © {new Date().getFullYear()} PHORI LAB</p>
-            <p className="text-center">Curation over algorithms. Signal over noise. Progression over virality.</p>
+            <p>© {new Date().getFullYear()} Native Scope Communications (Pty) Ltd. All Rights Reserved.</p>
+            <p className="text-center">Raw to release. Where producers begin.</p>
           </div>
         </div>
       </footer>

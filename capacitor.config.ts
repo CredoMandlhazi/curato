@@ -1,8 +1,8 @@
 import type { CapacitorConfig } from '@capacitor/cli';
 
 const config: CapacitorConfig = {
-  appId: 'com.credo.phorilab',
-  appName: 'PHORI LAB',
+  appId: 'app.lovable.53088d3b154b49e89310bd84f32d82c8',
+  appName: 'Curato',
   webDir: 'dist',
   server: {
     url: 'https://53088d3b-154b-49e8-9310-bd84f32d82c8.lovableproject.com?forceHideBadge=true',

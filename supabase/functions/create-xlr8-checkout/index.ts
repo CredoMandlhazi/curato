@@ -30,7 +30,7 @@ serve(async (req) => {
     // XLR8 Plugin product details
     const productData = {
       name: "XLR8 Plugin - Full License",
-      description: "DJ Maphorisa Signature Plugin - Compress. Plate. Delay. Accelerated.",
+      description: "XLR8 Signature Plugin - Compress. Plate. Delay. Accelerated.",
       price: 9900, // $99.00 in cents
     };
 

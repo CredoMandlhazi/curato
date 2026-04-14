@@ -3,7 +3,7 @@ import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { HashRouter as BrowserRouter, Routes, Route } from "react-router-dom";
 import { AnimatePresence } from "framer-motion";
 import { CartProvider } from "@/contexts/CartContext";
 import { GlobalAudioProvider } from "@/contexts/GlobalAudioContext";
@@ -29,6 +29,10 @@ import ListenerDashboard from "./pages/ListenerDashboard";
 import AdminPanel from "./pages/AdminPanel";
 import Shop from "./pages/Shop";
 import XLR8Success from "./pages/XLR8Success";
+import Discover from "./pages/Discover";
+import Leaderboard from "./pages/Leaderboard";
+import Chat from "./pages/Chat";
+import Profile from "./pages/Profile";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -70,6 +74,10 @@ const App = () => {
                         <Route path="/admin" element={<AdminPanel />} />
                         <Route path="/shop" element={<Shop />} />
                         <Route path="/xlr8-success" element={<XLR8Success />} />
+                        <Route path="/discover" element={<Discover />} />
+                        <Route path="/leaderboard" element={<Leaderboard />} />
+                        <Route path="/chat" element={<Chat />} />
+                        <Route path="/profile" element={<Profile />} />
                         <Route path="*" element={<NotFound />} />
                       </Routes>
                     </AnimatePresence>

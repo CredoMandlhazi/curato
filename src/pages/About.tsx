@@ -2,14 +2,14 @@ import { Award, Users, Music2, Globe } from "lucide-react";
 import { motion } from "framer-motion";
 import { Card } from "@/components/ui/card";
 import { PageTransition } from "@/components/PageTransition";
-import maphorisaHero from "@/assets/dj-maphorisa-hero.jpg";
+import mdu1 from "@/assets/mdu-1.jpg";
 
 const About = () => {
   const stats = [
-    { icon: Music2, label: "Hit Records", value: "100+" },
-    { icon: Users, label: "Artists Developed", value: "50+" },
-    { icon: Award, label: "Awards Won", value: "30+" },
-    { icon: Globe, label: "Countries Reached", value: "40+" },
+    { icon: Music2, label: "Tracks Curated", value: "500+" },
+    { icon: Users, label: "Producers Onboarded", value: "200+" },
+    { icon: Award, label: "Top Selections", value: "50+" },
+    { icon: Globe, label: "Countries Reached", value: "20+" },
   ];
 
   return (
@@ -24,21 +24,21 @@ const About = () => {
             className="grid lg:grid-cols-2 gap-16 items-center mb-24"
           >
             <div>
-              <h1 className="text-5xl md:text-7xl font-bold mb-6">DJ Maphorisa</h1>
+              <h1 className="text-5xl md:text-7xl font-bold mb-6">Curato</h1>
               <div className="space-y-4 text-muted-foreground leading-relaxed">
                 <p>
-                  Themba Sonnyboy Sekowe, known professionally as DJ Maphorisa, is a South African DJ, 
-                  record producer, and songwriter. He is one of the most influential figures in the 
-                  African music industry and a pioneer of the Amapiano genre.
+                  Curato is a creator platform developed by Native Scope, designed to be the 
+                  central engine of a new collaboration — bringing producers into a structured 
+                  ecosystem where they can create, be discovered, and progress.
                 </p>
                 <p>
-                  Born in Pretoria, South Africa, Maphorisa has been instrumental in shaping the sound 
-                  of modern African music. He has worked with international artists including Drake, 
-                  Wizkid, and Major Lazer, helping to bring African sounds to the global stage.
+                  It serves as the gateway into the project, with access driven through FL Studio 
+                  packs and anchored by real cultural participation. Backed by industry professionals 
+                  and trusted curators, Curato is where raw talent meets structure.
                 </p>
                 <p>
-                  As the founder of PHORI LAB, he's now dedicated to developing the next generation 
-                  of African artists through structured feedback and real-world hit testing.
+                  The platform is in its final stages of development, with early backing from 
+                  some of South Africa's most influential producers and cultural tastemakers.
                 </p>
               </div>
             </div>
@@ -49,7 +49,7 @@ const About = () => {
               transition={{ duration: 0.6, delay: 0.2 }}
             >
               <div className="aspect-square rounded-2xl overflow-hidden">
-                <img src={maphorisaHero} alt="DJ Maphorisa" className="w-full h-full object-cover" />
+                <img src={mdu1} alt="Music production" className="w-full h-full object-cover" />
               </div>
             </motion.div>
           </motion.div>
@@ -73,7 +73,7 @@ const About = () => {
             ))}
           </div>
 
-          {/* PHORI LAB Mission */}
+          {/* Mission */}
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -81,12 +81,11 @@ const About = () => {
             className="mb-24"
           >
             <Card className="p-12 text-center">
-              <h2 className="text-3xl font-bold mb-6">The PHORI LAB Mission</h2>
+              <h2 className="text-3xl font-bold mb-6">The Curato Vision</h2>
               <p className="text-lg text-muted-foreground max-w-3xl mx-auto leading-relaxed">
-                To reduce randomness in artist discovery and increase the probability of export-ready records. 
-                PHORI LAB enables African artists to safely test unreleased music in real listening environments, 
-                receive structured feedback from trusted tastemakers, and progress through an export-readiness 
-                pipeline powered by DJ Maphorisa's curation network.
+                Curato becomes the gateway into music creation in Africa — where producers start, 
+                creators grow, and culture is shaped. We're not just helping producers make music. 
+                We're building the system that turns them into recognised creators.
               </p>
             </Card>
           </motion.div>
@@ -99,26 +98,26 @@ const About = () => {
           >
             <div className="grid md:grid-cols-3 gap-8">
               <Card className="p-8 hover:border-foreground/20 transition-colors">
-                <h3 className="text-xl font-bold mb-4">Curation Over Algorithms</h3>
+                <h3 className="text-xl font-bold mb-4">Structure Over Chaos</h3>
                 <p className="text-muted-foreground text-sm leading-relaxed">
-                  Human insight beats automated discovery. Our network of tastemakers provides 
-                  feedback that algorithms simply cannot replicate.
+                  Talent exists. Structure doesn't. Curato provides the clear starting point, 
+                  quality sounds, and feedback from credible producers that creators need.
                 </p>
               </Card>
               
               <Card className="p-8 hover:border-foreground/20 transition-colors">
-                <h3 className="text-xl font-bold mb-4">Signal Over Noise</h3>
+                <h3 className="text-xl font-bold mb-4">Culture-Driven Curation</h3>
                 <p className="text-muted-foreground text-sm leading-relaxed">
-                  We cut through the chaos of the music industry to identify what truly resonates 
-                  with audiences and has genuine export potential.
+                  Reviewed by industry professionals, genre tastemakers, and prominent 
+                  producers — real people who understand the sound.
                 </p>
               </Card>
               
               <Card className="p-8 hover:border-foreground/20 transition-colors">
-                <h3 className="text-xl font-bold mb-4">Progression Over Virality</h3>
+                <h3 className="text-xl font-bold mb-4">Creation → Career</h3>
                 <p className="text-muted-foreground text-sm leading-relaxed">
-                  Building lasting careers matters more than fleeting moments. We focus on 
-                  sustainable artist development, not viral lottery tickets.
+                  Top creators move into live performance showcases, studio collaborations, 
+                  and future placements. Creation becomes career progression.
                 </p>
               </Card>
             </div>

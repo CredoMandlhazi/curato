@@ -1,0 +1,36 @@
+
+-- Chat messages table for role-based chat rooms
+CREATE TABLE public.chat_messages (
+  id UUID NOT NULL DEFAULT gen_random_uuid() PRIMARY KEY,
+  user_id UUID NOT NULL,
+  room TEXT NOT NULL,
+  content TEXT NOT NULL,
+  created_at TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT now()
+);
+
+-- Enable RLS
+ALTER TABLE public.chat_messages ENABLE ROW LEVEL SECURITY;
+
+-- Anyone authenticated can view messages (room filtering done in app)
+CREATE POLICY "Authenticated users can view chat messages"
+ON public.chat_messages
+FOR SELECT
+TO authenticated
+USING (true);
+
+-- Users can insert their own messages
+CREATE POLICY "Users can send chat messages"
+ON public.chat_messages
+FOR INSERT
+TO authenticated
+WITH CHECK (auth.uid() = user_id);
+
+-- Users can delete their own messages
+CREATE POLICY "Users can delete their own messages"
+ON public.chat_messages
+FOR DELETE
+TO authenticated
+USING (auth.uid() = user_id);
+
+-- Enable realtime
+ALTER PUBLICATION supabase_realtime ADD TABLE public.chat_messages;

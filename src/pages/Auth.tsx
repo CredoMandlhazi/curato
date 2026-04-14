@@ -58,6 +58,10 @@ const Auth = () => {
   const [signupRole, setSignupRole] = useState<SignupRole>("artist");
   const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [idNumber, setIdNumber] = useState("");
+  const [contactNumber, setContactNumber] = useState("");
+  const [residentialAddress, setResidentialAddress] = useState("");
+  const [gender, setGender] = useState("");
   const [errors, setErrors] = useState<{ email?: string; password?: string; displayName?: string }>({});
   const [passwordChecks, setPasswordChecks] = useState<PasswordCheck[]>([]);
   const navigate = useNavigate();
@@ -160,7 +164,7 @@ const Auth = () => {
       } else {
         const redirectUrl = `${window.location.origin}/`;
 
-        const { error } = await supabase.auth.signUp({
+        const { data: signUpData, error } = await supabase.auth.signUp({
           email,
           password,
           options: {
@@ -171,6 +175,21 @@ const Auth = () => {
             },
           },
         });
+
+        // Update profile with extra fields after signup
+        if (!error && signUpData?.user) {
+          setTimeout(async () => {
+            await supabase
+              .from("profiles")
+              .update({
+                id_number: idNumber || null,
+                contact_number: contactNumber || null,
+                residential_address: residentialAddress || null,
+                gender: gender || null,
+              } as any)
+              .eq("user_id", signUpData.user!.id);
+          }, 1000);
+        }
 
         if (error) {
           if (error.message.includes("already registered")) {
@@ -195,6 +214,10 @@ const Auth = () => {
     setEmail("");
     setPassword("");
     setDisplayName("");
+    setIdNumber("");
+    setContactNumber("");
+    setResidentialAddress("");
+    setGender("");
     setErrors({});
     setPasswordChecks([]);
   };
@@ -245,7 +268,7 @@ const Auth = () => {
             )}
             <h1 className="text-2xl font-bold mb-2">
               {mode === "login" && "Welcome Back"}
-              {mode === "signup" && "Join PHORI LAB"}
+              {mode === "signup" && "Join Curato"}
               {mode === "forgot" && "Reset Password"}
             </h1>
             <p className="text-muted-foreground text-sm">
@@ -313,6 +336,56 @@ const Auth = () => {
                     <span className="text-xs text-muted-foreground mt-1">Give feedback</span>
                   </Label>
                 </RadioGroup>
+              </div>
+            )}
+
+            {/* Extra fields (signup only) */}
+            {mode === "signup" && (
+              <div className="space-y-4">
+                <div className="grid grid-cols-2 gap-3">
+                  <div className="space-y-2">
+                    <Label htmlFor="idNumber">ID Number</Label>
+                    <Input
+                      id="idNumber"
+                      placeholder="National ID"
+                      value={idNumber}
+                      onChange={(e) => setIdNumber(e.target.value)}
+                    />
+                  </div>
+                  <div className="space-y-2">
+                    <Label htmlFor="contactNumber">Contact Number</Label>
+                    <Input
+                      id="contactNumber"
+                      placeholder="+27..."
+                      value={contactNumber}
+                      onChange={(e) => setContactNumber(e.target.value)}
+                    />
+                  </div>
+                </div>
+                <div className="space-y-2">
+                  <Label htmlFor="address">Residential Address</Label>
+                  <Input
+                    id="address"
+                    placeholder="Full address"
+                    value={residentialAddress}
+                    onChange={(e) => setResidentialAddress(e.target.value)}
+                  />
+                </div>
+                <div className="space-y-2">
+                  <Label htmlFor="gender">Gender</Label>
+                  <select
+                    id="gender"
+                    value={gender}
+                    onChange={(e) => setGender(e.target.value)}
+                    className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+                  >
+                    <option value="">Select gender</option>
+                    <option value="male">Male</option>
+                    <option value="female">Female</option>
+                    <option value="non-binary">Non-binary</option>
+                    <option value="prefer-not-to-say">Prefer not to say</option>
+                  </select>
+                </div>
               </div>
             )}
 
@@ -459,7 +532,7 @@ const Auth = () => {
         </div>
 
         <p className="text-center text-xs text-muted-foreground mt-6">
-          By continuing, you agree to PHORI LAB's Terms of Service and Privacy Policy.
+          By continuing, you agree to Curato's Terms of Service and Privacy Policy.
         </p>
       </motion.div>
     </div>

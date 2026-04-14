@@ -21,11 +21,12 @@ import { Link } from "react-router-dom";
 import { TrackPlayButton } from "@/components/TrackPlayButton";
 
 const statusConfig: Record<string, { label: string; color: string; icon: React.ReactNode }> = {
-  pending: { label: "Pending Review", color: "bg-yellow-500/20 text-yellow-400", icon: <Clock className="w-3 h-3" /> },
-  in_review: { label: "In Review", color: "bg-blue-500/20 text-blue-400", icon: <MessageSquare className="w-3 h-3" /> },
+  pending: { label: "Pending", color: "bg-yellow-500/20 text-yellow-400", icon: <Clock className="w-3 h-3" /> },
+  community_review: { label: "Community Review", color: "bg-violet-500/20 text-violet-400", icon: <TrendingUp className="w-3 h-3" /> },
+  in_review: { label: "Curator Review", color: "bg-blue-500/20 text-blue-400", icon: <MessageSquare className="w-3 h-3" /> },
   in_pool: { label: "In Test Pool", color: "bg-purple-500/20 text-purple-400", icon: <TrendingUp className="w-3 h-3" /> },
   shortlisted: { label: "Shortlisted", color: "bg-green-500/20 text-green-400", icon: <Star className="w-3 h-3" /> },
-  approved: { label: "Export Ready", color: "bg-emerald-500/20 text-emerald-400", icon: <CheckCircle className="w-3 h-3" /> },
+  approved: { label: "Validated", color: "bg-emerald-500/20 text-emerald-400", icon: <CheckCircle className="w-3 h-3" /> },
   rejected: { label: "Not Selected", color: "bg-red-500/20 text-red-400", icon: <Clock className="w-3 h-3" /> },
 };
 

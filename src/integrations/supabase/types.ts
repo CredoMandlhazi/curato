@@ -14,6 +14,30 @@ export type Database = {
   }
   public: {
     Tables: {
+      chat_messages: {
+        Row: {
+          content: string
+          created_at: string
+          id: string
+          room: string
+          user_id: string
+        }
+        Insert: {
+          content: string
+          created_at?: string
+          id?: string
+          room: string
+          user_id: string
+        }
+        Update: {
+          content?: string
+          created_at?: string
+          id?: string
+          room?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
       feedback: {
         Row: {
           commercial_potential: number | null
@@ -143,10 +167,14 @@ export type Database = {
         Row: {
           avatar_url: string | null
           bio: string | null
+          contact_number: string | null
           created_at: string
           display_name: string | null
+          gender: string | null
           id: string
+          id_number: string | null
           location: string | null
+          residential_address: string | null
           stage_name: string | null
           updated_at: string
           user_id: string
@@ -154,10 +182,14 @@ export type Database = {
         Insert: {
           avatar_url?: string | null
           bio?: string | null
+          contact_number?: string | null
           created_at?: string
           display_name?: string | null
+          gender?: string | null
           id?: string
+          id_number?: string | null
           location?: string | null
+          residential_address?: string | null
           stage_name?: string | null
           updated_at?: string
           user_id: string
@@ -165,10 +197,14 @@ export type Database = {
         Update: {
           avatar_url?: string | null
           bio?: string | null
+          contact_number?: string | null
           created_at?: string
           display_name?: string | null
+          gender?: string | null
           id?: string
+          id_number?: string | null
           location?: string | null
+          residential_address?: string | null
           stage_name?: string | null
           updated_at?: string
           user_id?: string
@@ -208,6 +244,38 @@ export type Database = {
         }
         Relationships: []
       }
+      track_comments: {
+        Row: {
+          content: string
+          created_at: string
+          id: string
+          track_id: string
+          user_id: string
+        }
+        Insert: {
+          content: string
+          created_at?: string
+          id?: string
+          track_id: string
+          user_id: string
+        }
+        Update: {
+          content?: string
+          created_at?: string
+          id?: string
+          track_id?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "track_comments_track_id_fkey"
+            columns: ["track_id"]
+            isOneToOne: false
+            referencedRelation: "tracks"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       track_likes: {
         Row: {
           created_at: string
@@ -230,6 +298,35 @@ export type Database = {
         Relationships: [
           {
             foreignKeyName: "track_likes_track_id_fkey"
+            columns: ["track_id"]
+            isOneToOne: false
+            referencedRelation: "tracks"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      track_shares: {
+        Row: {
+          created_at: string
+          id: string
+          track_id: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          track_id: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          track_id?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "track_shares_track_id_fkey"
             columns: ["track_id"]
             isOneToOne: false
             referencedRelation: "tracks"
@@ -314,6 +411,7 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
+      get_track_engagement: { Args: { p_track_id: string }; Returns: number }
       get_user_role: {
         Args: { _user_id: string }
         Returns: Database["public"]["Enums"]["app_role"]
